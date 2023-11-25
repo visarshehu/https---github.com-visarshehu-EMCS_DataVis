@@ -14,7 +14,7 @@
                     d3.csv("tiobe.csv", d => {
                         return	{
                             programming_language: d.pl,
-                            count:	+d.count //note the plus sign to treat this column as a number
+                            count:	+d.count 
                         }
                     }).then(data => {
                         console.log(data);
@@ -26,7 +26,8 @@
                         console.log(data);
                         visualize(data);
                     });
-
+                    
+                    const visualize = (data) => {};
     </script>
     <div id="barchart">
 
