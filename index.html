@@ -1,0 +1,35 @@
+<html>
+
+<head>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+
+        const svg  = d3.select("#barchart")
+                    .append("svg")
+                    .attr("viewBox", "0 0 600 600");
+
+                    d3.csv("tiobe.csv", d => {
+                        return	{
+                            programming_language: d.pl,
+                            count:	+d.count //note the plus sign to treat this column as a number
+                        }
+                    }).then(data => {
+                        console.log(data);
+                        console.log(data.length);
+                        console.log(d3.max(data, d => d.count));
+                        console.log(d3.min(data, d => d.count));
+                        console.log(d3.extent(data, d => d.count));
+                        data.sort((a, b) => b.count - a.count);
+                        console.log(data);
+                        visualize(data);
+                    });
+
+    </script>
+    <div id="barchart">
+
+    </div>
+</body>
+</html>
