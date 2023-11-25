@@ -28,15 +28,24 @@
                     });
                     
                     const visualize = (data) => {
-                        const barHeight = 20;
+
+                        const xScale = d3.scaleLinear()
+                                        .domain([0,14.16])
+                                        .range([0,400]);
+                                        
+                        const yScale = d3.scaleBand()
+                                        .domain(data.map(d => d.programming_language))
+                                        .range([0,450])
+                                        .paddingInner(0.1);
+
                         svg
                             .selectAll("rect")
                             .data(data)
                             .join("rect")
-                                .attr("width", d => d.count * 20)
-                                .attr("height", barHeight )
+                                .attr("width", d => xScale(d.count))
+                                .attr("height", yScale.bandwidth())
                                 .attr("x", 0)
-                                .attr("y", (d, i) => (barHeight + 5) * i)
+                                .attr("y", d => yScale(d.programming_language))
                                 .attr("fill", 
                                     d => d.programming_language === "JavaScript" ? "green" : "lightblue"
                                     );
