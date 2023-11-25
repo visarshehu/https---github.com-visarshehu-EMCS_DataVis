@@ -7,7 +7,7 @@
 <body>
     <script type="text/javascript">
 
-        const svg  = d3.select("#barchart")
+        const svg  = d3.select("body")
                     .append("svg")
                     .attr("viewBox", "0 0 600 600");
 
@@ -15,7 +15,7 @@
                         return	{
                             programming_language: d.pl,
                             count:	+d.count 
-                        }
+                        } 
                     }).then(data => {
                         console.log(data);
                         console.log(data.length);
@@ -27,7 +27,21 @@
                         visualize(data);
                     });
                     
-                    const visualize = (data) => {};
+                    const visualize = (data) => {
+                        const barHeight = 20;
+                        svg
+                            .selectAll("rect")
+                            .data(data)
+                            .join("rect")
+                                .attr("width", d => d.count * 20)
+                                .attr("height", barHeight )
+                                .attr("x", 0)
+                                .attr("y", (d, i) => (barHeight + 5) * i)
+                                .attr("fill", 
+                                    d => d.programming_language === "JavaScript" ? "green" : "lightblue"
+                                    );
+
+                    };
     </script>
     <div id="barchart">
 
